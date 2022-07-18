@@ -42,7 +42,7 @@ data <- data %>%
 ```
 
 
-# Data visulization
+## Data visulization
 
 Plot the data
 ```{r}
