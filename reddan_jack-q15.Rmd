@@ -1,6 +1,6 @@
 ---
 title: 'First Year Exam: Bioinformatics Portion'
-author: "Jack Reddan (PID: A549010543)"
+author: "Jack Reddan (PID: A59010543)"
 date: '2022-07-18'
 output: pdf_document
 ---
