@@ -5,12 +5,15 @@ date: '2022-07-18'
 output: pdf_document
 ---
 
+## Packages
+
 Load all of the necessary packages
 ```{r}
 library(dplyr)
 library(ggplot2)
 library(lubridate)
 ```
+## Data import
 
 Read in the data from the .csv as a tibble
 ```{r}
@@ -23,6 +26,8 @@ Look at the structure of the data
 ```{r}
 head(data)
 ```
+## Data processing
+
 Make dates more workable
 ```{r}
 data <- data %>%
@@ -36,6 +41,8 @@ data <- data %>%
   filter(variant_name != "Other", variant_name != "Total") # drop "other" & "total"
 ```
 
+
+# Data visulization
 
 Plot the data
 ```{r}
@@ -53,6 +60,8 @@ ggplot(data = data) + # Specify the data as 'data'
        y = "Percentage of sequenced specimens") + # Clean-up the y-axis label
   theme_bw() # Change theme to match example
 ```
+
+## Session information
 
 ```{r}
 sessionInfo()
