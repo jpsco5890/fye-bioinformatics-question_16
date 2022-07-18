@@ -1,0 +1,60 @@
+---
+title: 'First Year Exam: Bioinformatics Portion'
+author: "Jack Reddan (PID: A549010543)"
+date: '2022-07-18'
+output: pdf_document
+---
+
+Load all of the necessary packages
+```{r}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+```
+
+Read in the data from the .csv as a tibble
+```{r}
+data <- as_tibble(read.csv(file = "covid19_variants.csv", # Specify File
+                           sep = ",", # Make sure it reads "," as the separator
+                           header = T)) # Indicate the first row is the column names
+```
+
+Look at the structure of the data
+```{r}
+head(data)
+```
+Make dates more workable
+```{r}
+data <- data %>%
+  mutate(date = ymd(date)) # Change the date column from a <chr> to a <date>
+```
+
+Subset the data to match the example
+```{r}
+data <- data %>%
+  filter(date < as.Date("2022-04-17")) %>% # drop late dates
+  filter(variant_name != "Other", variant_name != "Total") # drop "other" & "total"
+```
+
+
+Plot the data
+```{r}
+ggplot(data = data) + # Specify the data as 'data'
+  geom_line(aes(x = date, # Plot date on the x-axis
+                y = percentage, # Plot percentage for each variant on the y-axis
+                color = variant_name)) + # Color and group by variant
+  scale_x_date(date_breaks="1 month", # Specify the x-axis tick marks to go month-by-month
+               date_labels="%b %Y") + # Specify the format for each month
+  guides(x = guide_axis(angle = 60)) + # Angle the x-axis ticks to make more readable
+  scale_color_discrete(name = "") + # Remove the legend title
+  labs(title = "Covid-19 Variants in California", # Add a main title
+       caption = "Data Source: <https://www.cdph.ca.gov>", # Add a caption
+       x = "", # Remove the x-axis label
+       y = "Percentage of sequenced specimens") + # Clean-up the y-axis label
+  theme_bw() # Change theme to match example
+```
+
+```{r}
+sessionInfo()
+```
+
